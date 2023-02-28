@@ -2,7 +2,7 @@
 </script>
 
 <main>
-  Hello
+  Hello!
 </main>
 
 <style>
