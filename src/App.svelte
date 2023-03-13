@@ -9,6 +9,8 @@
 
   let x = 0;
   let y = 0;
+  let frame = 0;
+  let frameLimit = 50;
 
   let xIncrement = 1;
 
@@ -20,17 +22,25 @@
     let animationFrame = requestAnimationFrame(loop);
 
     function loop() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.beginPath();
-      ctx.rect(x, y, squareDimension, squareDimension);
-      ctx.fill();
+      frame++;
+      if (frame % frameLimit === 0) {
+        console.log(frame);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.rect(x, y, squareDimension, squareDimension);
+        ctx.fill();
 
-      if (x + squareDimension > w || x < 0) {
-        xIncrement *= -1;
+        if (x + squareDimension > w || x < 0) {
+          xIncrement *= -1;
+        }
+        x += xIncrement;
       }
-      // x += xIncrement;
 
       animationFrame = requestAnimationFrame(loop);
+
+      return () => {
+        cancelAnimationFrame(animationFrame);
+      };
     }
   });
 </script>
